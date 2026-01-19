@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bx2mftccpqa6q"]
+[gd_scene load_steps=5 format=3 uid="uid://bx2mftccpqa6q"]
 
 [ext_resource type="Script" path="res://scenes/car.gd" id="1_fccxx"]
 [ext_resource type="Texture2D" uid="uid://ded8huv3lr1a7" path="res://graphics/cars/yellow.png" id="1_vetj6"]
+[ext_resource type="AudioStream" uid="uid://b1tqncx2imi4x" path="res://audio/carnoise.ogg" id="3_5usa0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rgcru"]
 size = Vector2(24, 13)
@@ -19,5 +20,12 @@ position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_rgcru")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_5usa0")
+volume_db = -8.0
+autoplay = true
+max_distance = 80.0
+parameters/looping = true
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

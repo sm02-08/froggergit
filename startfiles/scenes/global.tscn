@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://detdk03dumbd"]
+
+[ext_resource type="Script" path="res://scenes/global.gd" id="1_n03p4"]
+
+[node name="Global" type="Node"]
+script = ExtResource("1_n03p4")

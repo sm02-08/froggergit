@@ -8,9 +8,16 @@ extends Node2D
 
 # store the car scene inside the game scene 
 var car_scene: PackedScene = preload("res://scenes/car.tscn") # when loading a scene, you always use PackedScene and then preload the tscn 
+var score: int = 0 # the default value of the score is 0; this will be used in the below function on_score_timer_timeout
 
 func _on_area_2d_body_entered(body):
 	print("player entered")
+	call_deferred("change_scene")
+	if score > Global.score: # this score refers to the score defined in this script 
+		Global.score = score # this score refers to the score inside the global variable global.gd
+
+func change_scene(): 
+	get_tree().change_scene_to_file("res://scenes/title.tscn")
 
 
 func _on_car_timer_timeout():
@@ -24,6 +31,13 @@ func _on_car_timer_timeout():
 	
 	car.connect("body_entered", go_to_title)
 
-func go_to_title(body): # why pass in "body" as a parameter? because if you try to do it without any parameters, godot will return a lot of errors in the "Debugger" tab. what are these errors? essentially, without parameters, you'd expect zero inputs. however, when doing the .connect() stuff, you have to pass in "body_entered" and like... that's 1 input when you were expecting zero. so to counteract that, pass in a parameter called "body" 
-	print(body) 
-	print("Player car collision happened")
+func go_to_title(_body): # why pass in "body" as a parameter? because if you try to do it without any parameters, godot will return a lot of errors in the "Debugger" tab. what are these errors? essentially, without parameters, you'd expect zero inputs. however, when doing the .connect() stuff, you have to pass in "body_entered" and like... that's 1 input when you were expecting zero. so to counteract that, pass in a parameter called "body" 
+	#print(body) 
+	#print("Player car collision happened")
+	call_deferred("change_scene")
+	# we changed go_to_title(body) to go_to_title(_body) because the "body" is never used
+
+
+func _on_score_timer_timeout():
+	score += 1 # every second, score incresaes by 1 
+	$CanvasLayer/Label.text = "Score: " + str(score)

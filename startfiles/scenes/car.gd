@@ -2,11 +2,17 @@ extends Area2D
 
 var direction = Vector2.LEFT # makes the cars move left 
 var speed = 100 
+var colors = [
+	preload("res://graphics/cars/green.png"),
+	preload("res://graphics/cars/red.png"), 
+	preload("res://graphics/cars/yellow.png")
+	] # we want to make different colors for the cars instead of having them all the same color, so have the colors of the cars be in an array
 
 func _ready() -> void: 
 	if position.x < 0: # then we know we're on the left side
 		direction.x = 1 # and we switch it to the right side 
 		$Sprite2D.flip_h = true 
+	$Sprite2D.texture = colors.pick_random() # pick a color of car at random 
 
 func _process(delta: float) -> void: 
 	position += direction * speed * delta # we're updating the position of this area2d node 

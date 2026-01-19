@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://gmph1iksii3y"]
+[gd_scene load_steps=21 format=4 uid="uid://gmph1iksii3y"]
 
 [ext_resource type="Texture2D" uid="uid://doghmovcgeltw" path="res://graphics/map.png" id="1_45w7k"]
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_y7uhq"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://b2mb60nwppxnm" path="res://scenes/trees_objects/house_1.tscn" id="9_4crjo"]
 [ext_resource type="PackedScene" uid="uid://cyk10j8fdokwg" path="res://scenes/trees_objects/house_2.tscn" id="10_vn2kc"]
 [ext_resource type="PackedScene" uid="uid://bhj3vr27fcb1d" path="res://scenes/trees_objects/house_3.tscn" id="11_qyka0"]
+[ext_resource type="FontFile" uid="uid://hqpa84d2dqvp" path="res://fonts/Better VCR 9.0.1.ttf" id="13_sl6mi"]
+[ext_resource type="AudioStream" uid="uid://d05385du5fc0j" path="res://audio/S31-City on Speed.ogg" id="14_lxvqj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cr5q6"]
 size = Vector2(19.5, 707)
@@ -100,6 +102,9 @@ polygon = PackedVector2Array(-190.5, 92, -83.5, 90, -82.5, 60, 111.5, 59, 112.5,
 wait_time = 0.25
 autostart = true
 
+[node name="ScoreTimer" type="Timer" parent="Timer"]
+autostart = true
+
 [node name="Objects" type="Node2D" parent="."]
 y_sort_enabled = true
 
@@ -139,5 +144,29 @@ position = Vector2(211, -94)
 [node name="Marker2D8" type="Marker2D" parent="CarStartPositions"]
 position = Vector2(-212, -117)
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -39.0
+offset_top = 10.0
+offset_right = 39.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("13_sl6mi")
+theme_override_font_sizes/font_size = 40
+text = "Score: 0"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_lxvqj")
+volume_db = -20.0
+autoplay = true
+parameters/looping = true
+
 [connection signal="body_entered" from="Borders/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Timer/CarTimer" to="." method="_on_car_timer_timeout"]
+[connection signal="timeout" from="Timer/ScoreTimer" to="." method="_on_score_timer_timeout"]
