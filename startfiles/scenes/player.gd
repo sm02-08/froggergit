@@ -1,7 +1,7 @@
 extends CharacterBody2D # funny how i couldn't figure out why velocity = ... was returning an error but it was just because you can't extend a Node2D and use move_and_slide with velocity; you have to use CharacterBody2D or 3D yk 
 
 var direction: Vector2 = Vector2(1,1) # the default -- this sets the vector to (this is a matrix so look at it instead of left to write like top to bottom [1 1] 
-var speed: int = 200
+var speed: int = 100
 func _physics_process(_delta: float) -> void: 
 	"""
 	position += direction * speed # so using the Vector2(1, 0) script, we know that this means the player will be moving to the RIGHT because 1 is the x-value and 0 is the y-value. if it was (1, 1) instead, the player would move diagonally downwards to the right because it moves right 1 and down 1 
